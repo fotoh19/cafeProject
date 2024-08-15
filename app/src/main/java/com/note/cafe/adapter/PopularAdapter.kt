@@ -1,10 +1,12 @@
 package com.note.cafe.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.note.cafe.activity.DetailActivity
 import com.note.cafe.databinding.ViewholderPopularBinding
 import com.note.cafe.model.ItemsModel
 
@@ -31,11 +33,13 @@ class PopularAdapter(val items: MutableList<ItemsModel>) :
         holder.binding.extraTxt.text = items[position].extra
 
         Glide.with(holder.itemView)
-            .load(items[position].picURL[0])
+            .load(items[position].picUrl[0])
             .into(holder.binding.pic)
 
         holder.itemView.setOnClickListener {
-
+        val intent =Intent(holder.itemView.context,DetailActivity::class.java)
+            intent.putExtra("object",items[position])
+            holder.itemView.context.startActivity(intent)
         }
     }
 

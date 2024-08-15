@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/light_gradiant"
     tools:context=".activity.MainActivity">
 
     <ScrollView
@@ -13,7 +14,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="80dp">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -103,7 +105,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="24dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -121,8 +123,7 @@
                         android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="200dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="275dp"
                         android:layout_weight="1"
                         android:text="See All"
                         android:textColor="@color/white" />
@@ -131,6 +132,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
                     android:minHeight="200dp">
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -179,8 +181,7 @@
                         android:id="@+id/textView9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="140dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="215dp"
                         android:layout_weight="1"
                         android:text="See All"
                         android:textColor="@color/black" />

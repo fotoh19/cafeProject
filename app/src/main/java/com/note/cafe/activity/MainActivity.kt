@@ -1,10 +1,12 @@
 package com.note.cafe.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.note.cafe.adapter.CategoryAdapter
+import com.note.cafe.adapter.OfferAdapter
 import com.note.cafe.adapter.PopularAdapter
 import com.note.cafe.databinding.ActivityMainBinding
 import com.note.cafe.viewmodel.MainViewModel
@@ -19,6 +21,23 @@ class MainActivity : BaseActivity() {
 
         initCategory()
         initPopular()
+        initOffer()
+        bottomMenu()
+    }
+
+    private fun bottomMenu() {
+        binding.cartBtn.setOnClickListener{startActivity(Intent(this,CartActivity::class.java))}
+    }
+
+    private fun initOffer() {
+        binding.progressBaravailableoffers.visibility = View.VISIBLE
+        viewModel.offer.observe(this, Observer {
+            binding.recyclerviewavailableoffers.layoutManager =
+                LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            binding.recyclerviewavailableoffers.adapter=OfferAdapter(it)
+            binding.progressBaravailableoffers.visibility = View.GONE
+        })
+        viewModel.loadoffer()
     }
 
     private fun initPopular() {

@@ -6,7 +6,7 @@ import android.os.Parcelable
 data class ItemsModel(
     var title: String = "",
     var description: String = "",
-    var picURL: ArrayList<String> = ArrayList(),
+    var picUrl: ArrayList<String> = ArrayList(),
     var price: Double = 0.0,
     var rating: Double = 0.0,
     var numberInCart: Int = 0,
@@ -26,7 +26,7 @@ data class ItemsModel(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)
         parcel.writeString(description)
-        parcel.writeStringList(picURL)
+        parcel.writeStringList(picUrl)
         parcel.writeDouble(price)
         parcel.writeDouble(rating)
         parcel.writeInt(numberInCart)
