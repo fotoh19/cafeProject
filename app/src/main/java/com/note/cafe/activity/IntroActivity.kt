@@ -13,6 +13,9 @@ class IntroActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.startbtn.setOnClickListener{
+            startActivity(Intent(this@IntroActivity, LogInActivity::class.java))
+        }
+        binding.skipBtn.setOnClickListener{
             startActivity(Intent(this@IntroActivity, MainActivity::class.java))
         }
     }
