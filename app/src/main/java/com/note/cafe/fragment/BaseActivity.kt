@@ -1,9 +1,9 @@
-package com.note.cafe.activity
+package com.note.cafe.fragment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import com.note.cafe.R
+
 
 open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

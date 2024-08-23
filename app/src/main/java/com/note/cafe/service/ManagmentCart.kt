@@ -1,18 +1,17 @@
-package com.example.project1762.Helper
+package com.note.cafe.service
 
-import android.content.Context
-import android.widget.Toast
-import com.note.cafe.Helper.ChangeNumberItemsListener
-import com.note.cafe.Helper.TinyDB
+import com.note.cafe.fragment.CartFragment
+import com.note.cafe.fragment.DetailFragment
 import com.note.cafe.model.ItemsModel
 
 
-class ManagmentCart(val context: Context) {
+class ManagmentCart(val coontext: CartFragment) {
+    constructor(coontext: DetailFragment) : this(CartFragment())
 
-    private val tinyDB = TinyDB(context)
+    private val tinyDB = TinyDB<Any>()
 
     fun insertItems(item: ItemsModel) {
-        var listItem = getListCart()
+        val listItem = getListCart()
         val existAlready = listItem.any { it.title == item.title }
         val index = listItem.indexOfFirst { it.title == item.title }
 
@@ -22,7 +21,6 @@ class ManagmentCart(val context: Context) {
             listItem.add(item)
         }
         tinyDB.putListObject("CartList", listItem)
-        Toast.makeText(context, "Added to your Cart", Toast.LENGTH_SHORT).show()
     }
 
     fun getListCart(): ArrayList<ItemsModel> {
@@ -30,7 +28,7 @@ class ManagmentCart(val context: Context) {
     }
 
     fun minusItem(
-        listItems: ArrayList<ItemsModel>,
+        listItems: MutableList<ItemsModel>,
         position: Int,
         listener: ChangeNumberItemsListener
     ) {
@@ -44,7 +42,7 @@ class ManagmentCart(val context: Context) {
     }
 
     fun plusItem(
-        listItems: ArrayList<ItemsModel>,
+        listItems: MutableList<ItemsModel>,
         position: Int,
         listener: ChangeNumberItemsListener
     ) {
@@ -61,4 +59,8 @@ class ManagmentCart(val context: Context) {
         }
         return fee
     }
+}
+
+private fun <Bitmap> TinyDB<Bitmap>.putListObject(bitmap: Bitmap, listItems: Bitmap) {
+    TODO("Not yet implemented")
 }

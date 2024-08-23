@@ -1,33 +1,35 @@
-package com.note.cafe.activity
+package com.note.cafe.fragment
 
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.RoundedCorner
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.project1762.Helper.ManagmentCart
+import com.note.cafe.R
 import com.note.cafe.adapter.SizeAdapter
-import com.note.cafe.databinding.ActivityDetailBinding
+import com.note.cafe.databinding.FragmentDetailBinding
 import com.note.cafe.model.ItemsModel
+import com.note.cafe.service.ManagmentCart
 
-class DetailActivity : BaseActivity() {
 
-    lateinit var binding: ActivityDetailBinding
+class DetailFragment : Fragment(R.layout.fragment_detail) {
+    private var fragmentDetailBinding: FragmentDetailBinding? = null
+
     private lateinit var item: ItemsModel
     private lateinit var managementCart: ManagmentCart
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentDetailBinding.bind(view)
+        fragmentDetailBinding = binding
 
         managementCart=ManagmentCart(this)
         bundle()
         initSizeList()
+
     }
 
     private fun initSizeList() {
@@ -36,9 +38,9 @@ class DetailActivity : BaseActivity() {
         sizeList.add("2")
         sizeList.add("3")
         sizeList.add("4")
-        binding.sizeList.adapter = SizeAdapter(sizeList)
-        binding.sizeList.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        fragmentDetailBinding!!.sizeList.adapter = SizeAdapter()
+        fragmentDetailBinding!!.sizeList.layoutManager =
+            LinearLayoutManager(LinearLayoutManager.HORIZONTAL, false)
         val colorList=ArrayList<String>()
         for (imageUrl in item.picUrl){
             colorList.add(imageUrl)
@@ -46,13 +48,20 @@ class DetailActivity : BaseActivity() {
         Glide.with(this)
             .load(colorList[0])
             .apply(RequestOptions.bitmapTransform(RoundedCorners(100)))
-            .into(binding.picMain)
+            .into(fragmentDetailBinding!!.picMain)
     }
 
-    private fun bundle() {
-        binding.apply {
+    private fun LinearLayoutManager(
+        horizontal: Int,
+        b: Boolean
+    ): LinearLayoutManager {
+        TODO("Not yet implemented")
+    }
 
-            item = intent.getParcelableExtra("object")!!
+    @SuppressLint("SetTextI18n")
+    private fun bundle() {
+        fragmentDetailBinding!!.apply {
+
             titleTxt.text = item.title
             descriptionTxt.text = item.description
             priceTxt.text = "$" + item.price
@@ -63,9 +72,7 @@ class DetailActivity : BaseActivity() {
                     numberItemTxt.text.toString()
                 )
                 managementCart.insertItems(item)
-            }
-            backBtn.setOnClickListener {
-                startActivity((Intent(this@DetailActivity, MainActivity::class.java)))
+
             }
             pluscart.setOnClickListener {
                 numberItemTxt.text = (item.numberInCart + 1).toString()
@@ -79,5 +86,10 @@ class DetailActivity : BaseActivity() {
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentDetailBinding = null
     }
 }
