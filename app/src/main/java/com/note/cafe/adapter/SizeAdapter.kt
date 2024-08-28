@@ -4,30 +4,30 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.note.cafe.R
 import com.note.cafe.databinding.ViewholderSizeBinding
-import com.note.cafe.model.StringDiffCallback
 
-class SizeAdapter : ListAdapter<String, SizeAdapter.ViewHolder>(StringDiffCallback) {
+class SizeAdapter :
+    ListAdapter<String, SizeAdapter.Viewholder>(DiffCallback()) {
 
     private var selectedPosition = -1
     private var lastSelectedPosition = -1
+    private lateinit var context: Context
 
-    inner class ViewHolder(val binding: ViewholderSizeBinding) :
+    inner class Viewholder(val binding: ViewholderSizeBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ViewholderSizeBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return ViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Viewholder {
+        context = parent.context
+        val binding = ViewholderSizeBinding.inflate(LayoutInflater.from(context), parent, false)
+        return Viewholder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        val context = holder.itemView.context
-        getItem(position)
+    override fun onBindViewHolder(holder: Viewholder, position: Int) {
+        val item = getItem(position)
 
         holder.binding.root.setOnClickListener {
             lastSelectedPosition = selectedPosition
@@ -49,7 +49,6 @@ class SizeAdapter : ListAdapter<String, SizeAdapter.ViewHolder>(StringDiffCallba
             3 -> 65.dpToPx(context)
             else -> 70.dpToPx(context)
         }
-
         val layoutParams = holder.binding.img.layoutParams
         layoutParams.width = imageSize
         layoutParams.height = imageSize
@@ -58,5 +57,15 @@ class SizeAdapter : ListAdapter<String, SizeAdapter.ViewHolder>(StringDiffCallba
 
     private fun Int.dpToPx(context: Context): Int {
         return (this * context.resources.displayMetrics.density).toInt()
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
     }
 }

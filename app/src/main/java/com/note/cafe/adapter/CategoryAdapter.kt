@@ -1,32 +1,31 @@
 package com.note.cafe.adapter
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.note.cafe.R
 import com.note.cafe.databinding.ViewholderCategoryBinding
-import com.note.cafe.model.CategoryDiffCallback
 import com.note.cafe.model.CategoryModel
 
 class CategoryAdapter :
-    ListAdapter<CategoryModel, CategoryAdapter.ViewHolder>(CategoryDiffCallback) {
+    ListAdapter<CategoryModel, CategoryAdapter.Viewholder>(DiffCallback()) {
 
+    private lateinit var context: Context
     private var selectedPosition = -1
     private var lastSelectedPosition = -1
 
-    inner class ViewHolder(val binding: ViewholderCategoryBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class Viewholder(val binding: ViewholderCategoryBinding) :
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ViewholderCategoryBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return ViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Viewholder {
+        context = parent.context
+        val binding = ViewholderCategoryBinding.inflate(LayoutInflater.from(context), parent, false)
+        return Viewholder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(holder: Viewholder, position: Int) {
         val item = getItem(position)
         holder.binding.titleCategory.text = item.title
 
@@ -41,6 +40,17 @@ class CategoryAdapter :
             holder.binding.titleCategory.setBackgroundResource(R.drawable.orange_bg)
         } else {
             holder.binding.titleCategory.setBackgroundResource(R.drawable.editetextbg)
+        }
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<CategoryModel>() {
+        override fun areItemsTheSame(oldItem: CategoryModel, newItem: CategoryModel): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: CategoryModel, newItem: CategoryModel): Boolean {
+
+            return oldItem == newItem
         }
     }
 }

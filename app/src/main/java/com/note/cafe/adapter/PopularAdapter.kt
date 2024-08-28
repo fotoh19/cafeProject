@@ -4,15 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.note.cafe.fragment.DetailFragment
 import com.note.cafe.databinding.ViewholderPopularBinding
-import com.note.cafe.model.ItemsDiffCallback
 import com.note.cafe.model.ItemsModel
 
-class PopularAdapter : ListAdapter<ItemsModel, PopularAdapter.ViewHolder>(ItemsDiffCallback) {
+class PopularAdapter : ListAdapter<ItemsModel, PopularAdapter.ViewHolder>(DiffCallback()) {
 
     class ViewHolder(val binding: ViewholderPopularBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -43,5 +43,16 @@ class PopularAdapter : ListAdapter<ItemsModel, PopularAdapter.ViewHolder>(ItemsD
             intent.putExtra("object", item)
             context.startActivity(intent)
         }
+    }
+}
+class DiffCallback : DiffUtil.ItemCallback<ItemsModel>() {
+    override fun areItemsTheSame(oldItem: ItemsModel, newItem: ItemsModel): Boolean {
+
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: ItemsModel, newItem: ItemsModel): Boolean {
+
+        return oldItem == newItem
     }
 }

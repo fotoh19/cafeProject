@@ -26,7 +26,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         val binding = FragmentDetailBinding.bind(view)
         fragmentDetailBinding = binding
 
-        managementCart=ManagmentCart(this)
+
         bundle()
         initSizeList()
 

@@ -1,17 +1,18 @@
 package com.note.cafe.service
 
+import android.content.Context
+import android.widget.Toast
 import com.note.cafe.fragment.CartFragment
-import com.note.cafe.fragment.DetailFragment
+
 import com.note.cafe.model.ItemsModel
 
 
-class ManagmentCart(val coontext: CartFragment) {
-    constructor(coontext: DetailFragment) : this(CartFragment())
+class ManagmentCart(val context: Context) {
 
-    private val tinyDB = TinyDB<Any>()
+    private val tinyDB = TinyDB(context)
 
     fun insertItems(item: ItemsModel) {
-        val listItem = getListCart()
+        var listItem = getListCart()
         val existAlready = listItem.any { it.title == item.title }
         val index = listItem.indexOfFirst { it.title == item.title }
 
@@ -21,6 +22,7 @@ class ManagmentCart(val coontext: CartFragment) {
             listItem.add(item)
         }
         tinyDB.putListObject("CartList", listItem)
+        Toast.makeText(context, "Added to your Cart", Toast.LENGTH_SHORT).show()
     }
 
     fun getListCart(): ArrayList<ItemsModel> {
@@ -59,8 +61,4 @@ class ManagmentCart(val coontext: CartFragment) {
         }
         return fee
     }
-}
-
-private fun <Bitmap> TinyDB<Bitmap>.putListObject(bitmap: Bitmap, listItems: Bitmap) {
-    TODO("Not yet implemented")
 }

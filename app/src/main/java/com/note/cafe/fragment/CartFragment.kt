@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.note.cafe.R
 import com.note.cafe.adapter.CartAdapter
 import com.note.cafe.databinding.FragmentCartBinding
+import com.note.cafe.service.ChangeNumberItemsListener
 import com.note.cafe.service.ManagmentCart
 import kotlin.math.roundToInt
 
@@ -22,7 +23,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         val binding = FragmentCartBinding.bind(view)
         fragmentCartBinding = binding
 
-        managment = ManagmentCart(this)
 
         calculateCart()
         initCartList()
@@ -33,7 +33,12 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         with(fragmentCartBinding!!) {
             cartView.layoutManager =
                 LinearLayoutManager()
-            cartView.adapter= CartAdapter()
+            cartView.adapter= CartAdapter(managment.getListCart(),object :ChangeNumberItemsListener{
+                override fun onChanged() {
+                    calculateCart()
+                }
+
+            })
         }
     }
 
