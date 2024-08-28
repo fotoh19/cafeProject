@@ -1,5 +1,6 @@
-package com.note.cafe.adapter
+package com.note.cafe.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,13 +8,14 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
-import com.note.cafe.service.ChangeNumberItemsListener
+import com.note.cafe.Helper.ManagmentCart
+import com.note.cafe.model.service.ChangeNumberItemsListener
 import com.note.cafe.databinding.ViewholderCartBinding
 import com.note.cafe.model.ItemsModel
-import com.note.cafe.service.ManagmentCart
+
 
 class CartAdapter(
-    context: ArrayList<ItemsModel>,
+    val context: Context,
     var changeNumberItemListener: ChangeNumberItemsListener? = null
 ) : ListAdapter<ItemsModel, CartAdapter.Viewholder>(DiffCallback()) {
 
@@ -40,7 +42,8 @@ class CartAdapter(
             .into(holder.binding.picCart)
 
         holder.binding.plusCartBtn.setOnClickListener {
-            managementCart.plusItem(currentList.toMutableList(), position, object : ChangeNumberItemsListener {
+            managementCart.plusItem(currentList.toMutableList(), position, object :
+                ChangeNumberItemsListener {
                 override fun onChanged() {
                     notifyDataSetChanged()
                     changeNumberItemListener?.onChanged()
@@ -49,7 +52,8 @@ class CartAdapter(
         }
 
         holder.binding.minusCartBtn.setOnClickListener {
-            managementCart.minusItem(currentList.toMutableList(), position, object : ChangeNumberItemsListener {
+            managementCart.minusItem(currentList.toMutableList(), position, object :
+                ChangeNumberItemsListener {
                 override fun onChanged() {
                     notifyDataSetChanged()
                     changeNumberItemListener?.onChanged()

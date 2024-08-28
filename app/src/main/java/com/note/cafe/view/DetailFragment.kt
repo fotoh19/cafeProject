@@ -1,4 +1,4 @@
-package com.note.cafe.fragment
+package com.note.cafe.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,18 +8,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.note.cafe.Helper.ManagmentCart
 import com.note.cafe.R
-import com.note.cafe.adapter.SizeAdapter
+import com.note.cafe.view.adapter.SizeAdapter
 import com.note.cafe.databinding.FragmentDetailBinding
 import com.note.cafe.model.ItemsModel
-import com.note.cafe.service.ManagmentCart
 
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
     private var fragmentDetailBinding: FragmentDetailBinding? = null
 
     private lateinit var item: ItemsModel
-    private lateinit var managementCart: ManagmentCart
+    private var managementCart: ManagmentCart? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,7 +71,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 item.numberInCart = Integer.valueOf(
                     numberItemTxt.text.toString()
                 )
-                managementCart.insertItems(item)
+                managementCart!!.insertItems(item)
 
             }
             pluscart.setOnClickListener {

@@ -7,7 +7,7 @@
 
     <activity
         android:id="@+id/introActivity"
-        android:name="com.note.cafe.activity.IntroActivity"
+        android:name="com.note.cafe.view.IntroActivity"
         android:label="intro_main"
         tools:layout="@layout/intro_main" >
         <action
@@ -16,7 +16,7 @@
     </activity>
     <fragment
         android:id="@+id/logInFragment"
-        android:name="com.note.cafe.fragment.LogInFragment"
+        android:name="com.note.cafe.view.LogInFragment"
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.note.cafe.fragment.MainFragment"
+        android:name="com.note.cafe.view.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -37,12 +37,12 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.note.cafe.fragment.DetailFragment"
+        android:name="com.note.cafe.view.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.note.cafe.fragment.CartFragment"
+        android:name="com.note.cafe.view.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
 </navigation>

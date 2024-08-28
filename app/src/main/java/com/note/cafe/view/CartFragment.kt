@@ -1,21 +1,21 @@
-package com.note.cafe.fragment
+package com.note.cafe.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.note.cafe.Helper.ManagmentCart
 import com.note.cafe.R
-import com.note.cafe.adapter.CartAdapter
+import com.note.cafe.view.adapter.CartAdapter
 import com.note.cafe.databinding.FragmentCartBinding
-import com.note.cafe.service.ChangeNumberItemsListener
-import com.note.cafe.service.ManagmentCart
+import com.note.cafe.model.service.ChangeNumberItemsListener
 import kotlin.math.roundToInt
 
 
 class CartFragment : Fragment(R.layout.fragment_cart) {
     private var fragmentCartBinding: FragmentCartBinding? = null
-    private lateinit var managment: ManagmentCart
+    private var managment: ManagmentCart? = null
     private var tax: Double = 0.0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +33,8 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         with(fragmentCartBinding!!) {
             cartView.layoutManager =
                 LinearLayoutManager()
-            cartView.adapter= CartAdapter(managment.getListCart(),object :ChangeNumberItemsListener{
+            cartView.adapter= CartAdapter(managment!!.context,object :
+                ChangeNumberItemsListener {
                 override fun onChanged() {
                     calculateCart()
                 }
@@ -47,9 +48,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private fun calculateCart() {
         val percentTax = 0.02
         val delivery = 15.0
-        tax = ((managment.getTotalFee() * percentTax) * 100).roundToInt() / 100.0
-        val total = ((managment.getTotalFee() + tax + delivery) * 100).roundToInt() / 100
-        val itemTotal = (managment.getTotalFee() * 100).roundToInt() / 100
+        tax = ((managment!!.getTotalFee() * percentTax) * 100).roundToInt() / 100.0
+        val total = ((managment!!.getTotalFee() + tax + delivery) * 100).roundToInt() / 100
+        val itemTotal = (managment!!.getTotalFee() * 100).roundToInt() / 100
 
         with(fragmentCartBinding!!) {
             totalFeeTxt.text = "$$itemTotal"

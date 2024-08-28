@@ -1,4 +1,4 @@
-package com.note.cafe.adapter
+package com.note.cafe.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context

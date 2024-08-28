@@ -1,4 +1,4 @@
-package com.note.cafe.fragment
+package com.note.cafe.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

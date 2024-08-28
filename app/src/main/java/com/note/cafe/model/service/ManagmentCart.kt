@@ -1,55 +1,58 @@
-package com.note.cafe.service
+package com.note.cafe.Helper
 
 import android.content.Context
 import android.widget.Toast
-import com.note.cafe.fragment.CartFragment
-
+import com.note.cafe.model.CartDatabase
 import com.note.cafe.model.ItemsModel
+import com.note.cafe.model.service.ChangeNumberItemsListener
 
 
 class ManagmentCart(val context: Context) {
 
-    private val tinyDB = TinyDB(context)
+    private val cartDao = CartDatabase.getDatabase(context).itemtDao()
 
     fun insertItems(item: ItemsModel) {
-        var listItem = getListCart()
+        val listItem = getListCart()
         val existAlready = listItem.any { it.title == item.title }
         val index = listItem.indexOfFirst { it.title == item.title }
 
         if (existAlready) {
-            listItem[index].numberInCart = item.numberInCart
+            val existingItem = listItem[index]
+            existingItem.numberInCart = item.numberInCart
+            cartDao.updateItem(existingItem)
         } else {
-            listItem.add(item)
+            cartDao.insertItem(item)
         }
-        tinyDB.putListObject("CartList", listItem)
         Toast.makeText(context, "Added to your Cart", Toast.LENGTH_SHORT).show()
     }
 
-    fun getListCart(): ArrayList<ItemsModel> {
-        return tinyDB.getListObject("CartList") ?: arrayListOf()
+    fun getListCart(): List<ItemsModel> {
+        return cartDao.getAllItems()
     }
 
     fun minusItem(
-        listItems: MutableList<ItemsModel>,
+        listItems: List<ItemsModel>,
         position: Int,
         listener: ChangeNumberItemsListener
     ) {
-        if (listItems[position].numberInCart == 1) {
-            listItems.removeAt(position)
+        val item = listItems[position]
+        if (item.numberInCart == 1) {
+            cartDao.deleteItem(item)
         } else {
-            listItems[position].numberInCart--
+            item.numberInCart--
+            cartDao.updateItem(item)
         }
-        tinyDB.putListObject("CartList", listItems)
         listener.onChanged()
     }
 
     fun plusItem(
-        listItems: MutableList<ItemsModel>,
+        listItems: List<ItemsModel>,
         position: Int,
         listener: ChangeNumberItemsListener
     ) {
-        listItems[position].numberInCart++
-        tinyDB.putListObject("CartList", listItems)
+        val item = listItems[position]
+        item.numberInCart++
+        cartDao.updateItem(item)
         listener.onChanged()
     }
 

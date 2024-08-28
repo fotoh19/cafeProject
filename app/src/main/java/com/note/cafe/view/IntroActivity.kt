@@ -1,4 +1,4 @@
-package com.note.cafe.activity
+package com.note.cafe.view
 
 import android.os.Bundle
 import android.widget.Button
@@ -8,7 +8,7 @@ import com.note.cafe.R
 import com.note.cafe.databinding.IntroMainBinding
 
 
-class IntroActivity : AppCompatActivity() {
+class IntroActivity : BaseActivity() {
     private var binding: IntroMainBinding?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,4 +1,4 @@
-package com.note.cafe.fragment
+package com.note.cafe.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,9 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.note.cafe.R
-import com.note.cafe.adapter.CategoryAdapter
-import com.note.cafe.adapter.OfferAdapter
-import com.note.cafe.adapter.PopularAdapter
+import com.note.cafe.view.adapter.CategoryAdapter
+import com.note.cafe.view.adapter.OfferAdapter
+import com.note.cafe.view.adapter.PopularAdapter
 import com.note.cafe.databinding.FragmentMainBinding
 import com.note.cafe.viewmodel.MainViewModel
 

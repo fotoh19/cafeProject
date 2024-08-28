@@ -1,4 +1,4 @@
-package com.note.cafe.adapter
+package com.note.cafe.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.note.cafe.fragment.DetailFragment
+import com.note.cafe.view.DetailFragment
 import com.note.cafe.databinding.ViewholderPopularBinding
 import com.note.cafe.model.ItemsModel
 
