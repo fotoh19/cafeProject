@@ -9,7 +9,7 @@ import com.note.cafe.R
 import com.note.cafe.databinding.ViewholderCategoryBinding
 import com.note.cafe.model.CategoryModel
 
-class CategoryAdapter :
+class CategoryAdapter(categoryList: MutableList<CategoryModel>) :
     ListAdapter<CategoryModel, CategoryAdapter.Viewholder>(DiffCallback()) {
 
     private lateinit var context: Context

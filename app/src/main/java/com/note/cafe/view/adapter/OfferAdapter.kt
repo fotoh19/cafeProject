@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.note.cafe.databinding.ViewholderOfferBinding
 import com.note.cafe.model.ItemsModel
 
-class OfferAdapter :
+class OfferAdapter(offerList: MutableList<ItemsModel>) :
     ListAdapter<ItemsModel, OfferAdapter.Viewholder>(DiffCallback()) {
 
     private var context: Context? = null

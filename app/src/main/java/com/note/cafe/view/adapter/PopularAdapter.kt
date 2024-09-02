@@ -12,7 +12,7 @@ import com.note.cafe.view.DetailFragment
 import com.note.cafe.databinding.ViewholderPopularBinding
 import com.note.cafe.model.ItemsModel
 
-class PopularAdapter : ListAdapter<ItemsModel, PopularAdapter.ViewHolder>(DiffCallback()) {
+class PopularAdapter(popularList: MutableList<ItemsModel>) : ListAdapter<ItemsModel, PopularAdapter.ViewHolder>(DiffCallback()) {
 
     class ViewHolder(val binding: ViewholderPopularBinding) :
         RecyclerView.ViewHolder(binding.root)
